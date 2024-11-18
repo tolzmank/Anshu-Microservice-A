@@ -1,6 +1,7 @@
 # Anshu-Microservice-A
 Microservice to run operations for Anshu's main program
 
+Microservice access instructions:
 Anshu’s main program needs Kent’s Microservice-A to do the following:
 Receive:
 ● A list through ZeroMQ
@@ -41,3 +42,10 @@ Return:
 ● The system can be designed to store and retrieve data objects (such as books or
 members) in a list format. When a request is received via ZeroMQ, the system will return
 the complete list of all stored JSON objects.
+
+
+UML Sequence Diagram:
+
+
+
+
