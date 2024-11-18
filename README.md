@@ -1,6 +1,8 @@
 # Anshu-Microservice-A
 Microservice to run operations for Anshu's main program
 
+Anshu’s main program needs Kent’s Microservice-A to do the following:
+
 Microservice access instructions:
 Anshu’s main program needs Kent’s Microservice-A to do the following:
 Receive:
@@ -45,6 +47,7 @@ the complete list of all stored JSON objects.
 
 
 UML Sequence Diagram:
+![UML Sequence Diagram](images/cs361_microservice_uml_sequence_diagram.png)
 
 
 
