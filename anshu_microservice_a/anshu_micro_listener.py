@@ -1,6 +1,6 @@
 # Kent Tolzmann
 # CS361 - Microservice A
-# 10/28/24
+# 11/18/24
 
 
 def lms_microservice():
@@ -17,12 +17,20 @@ def lms_microservice():
     messages = []
 
     while True:
-        message = socket.recv()     # [{'sign_up': True}, {'username': 'John_Doe','password': 'password123','email': 'user@example.com', 'id': 3}]
+        message = socket.recv()
         data = json.loads(message.decode())
         print(f"Received: {message}")
         operation = data[0]
-        user_operations = [{'sign_up': True}, {'sign_in': True}, {'delete_user_id': True}]
-        book_operations = [{'store_book': True}, {'borrow_book': True}, {'delete_book_id': True}]
+        user_operations = [{'sign_up': True},
+                           {'sign_in': True},
+                           {'delete_user_id': True}
+                           ]
+        book_operations = [{'store_book': True},
+                           {'borrow_book': True},
+                           {'delete_book_id': True},
+                           {'return_book': True},
+                           {'delete_all_books': True}
+                           ]
 
         # User Authentication
         if operation in user_operations:
@@ -36,21 +44,22 @@ def lms_microservice():
 
         # Message storing
         else:
-            message = data[0]
-            messages.append(message)
+            new_message = data[0]
+            messages.append(new_message)
             reply = messages
 
         response = json.dumps(reply)
-        print(f'Response: {response}')
         socket.send(response.encode())
+        print(f'Response: {response}')
         print(f"users:\n {users}")
         print(f"books:\n {books}")
+        print()
 
 
 def user_authentication(operation, user, users):
     # Add user
     if operation == {'sign_up': True}:
-        print('USER SIGN UP')
+        print(f'USER SIGN UP')
         new_user = user
         for user in users:
             if new_user['username'] == user['username']:
@@ -115,9 +124,16 @@ def book_ops(operation, book, books):
 
     elif operation == {'delete_all_books': True}:
         print('DELETE ALL BOOKS')
-        books = []
+        books.clear()
         return books
 
+    elif operation == {'return_book': True}:
+        book_id = book
+        for book in books:
+            if book['id'] == book_id:
+                book['available'] = True
+                return books
+        return [{'borrow_book': 'book id not found'}]
 
 
 lms_microservice()
