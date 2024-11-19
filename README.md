@@ -14,19 +14,25 @@ which operation is being requested.
 
 Operations:
 [{'delete_book_id': True}, book_id]
+- Performs operations to delete the specified book by book id.
+
+[{'delete_all_books': True}]
 - Performs operations to delete all items from the database or stored list.
 
 [{'borrow_book': True}, book_id}]
 - Perform operations to borrow the specific book.
 
 [{'sign_up': True}, {'username': 'John_Doe, 'password': 'password123', 'email':
-'user@example.com'}]
+'user@example.com', 'id': 4}]
 - Perform the operations to add a new member to the library system with a
 username, password, and email.
 
 [{'sign_in': True}, {'username': 'existing_user', 'password': 'password123'}]
 - Perform the operations to authenticate an existing member by verifying their
 username and password.
+
+[{'delete_user_id’: True}, user_id]
+- Perform the operations to delete the specified user.
 
 [{'key1': 'valueA', 'key2': 'valueB', ..., 'id': int}]
 - Perform operation to the storage of a new message represented by the
@@ -36,9 +42,6 @@ provided JSON object.
 'available': True}]
 - Perform operation to store the new book's JSON object to the local list.
 
-[{'store_member': True}, {'username': 'john_doe', 'password': 'hashedpassword', 'email':
-'member@example.com', 'id': 4}]
-- Perform operation to store the new member's JSON object to the local list.
 
 Return:
 ● The system can be designed to store and retrieve data objects (such as books or
