@@ -1,8 +1,6 @@
 # Anshu-Microservice-A
 Microservice to run operations for Anshu's main program
 
-Anshu’s main program needs Kent’s Microservice-A to do the following:
-
 Microservice access instructions:
 Anshu’s main program needs Kent’s Microservice-A to do the following:
 Receive:
@@ -16,10 +14,13 @@ Operations:
 [{'delete_book_id': True}, book_id]
 - Performs operations to delete the specified book by book id.
 
-[{'delete_all_books': True}]
+[{'delete_all_books': True}, None]
 - Performs operations to delete all items from the database or stored list.
 
 [{'borrow_book': True}, book_id}]
+- Perform operations to borrow the specific book.
+
+[{'return_book': True}, book_id}]
 - Perform operations to borrow the specific book.
 
 [{'sign_up': True}, {'username': 'John_Doe, 'password': 'password123', 'email':
@@ -42,14 +43,15 @@ provided JSON object.
 'available': True}]
 - Perform operation to store the new book's JSON object to the local list.
 
-
 Return:
 ● The system can be designed to store and retrieve data objects (such as books or
 members) in a list format. When a request is received via ZeroMQ, the system will return
 the complete list of all stored JSON objects.
+	
 
 
 UML Sequence Diagram:
+
 ![UML Sequence Diagram](images/cs361_microservice_uml_sequence_diagram.png)
 
 
