@@ -3,7 +3,7 @@
 # 11/18/2024
 
 
-def get_micro_response(json_obj):
+def get_micro_response(op_list):
     import zmq
     import json
     context = zmq.Context()
@@ -13,15 +13,16 @@ def get_micro_response(json_obj):
     socket = context.socket(zmq.REQ)
     socket.connect("tcp://localhost:5554")
 
-    response = json.dumps(json_obj)
-    socket.send(response.encode())
+    response = json.dumps(op_list)
+    socket.send_string(response)
     print(f'Sent Request:\n {response}')
     print()
 
-    message = socket.recv()
-    print(f"Received Reply:\n {message.decode()}")
-    json_obj_message = json.loads(message.decode())
-    return json_obj_message
+    message = socket.recv_string()
+    op_list_message = json.loads(message)
+    print(f"Received Reply:\n {message}")
+
+    return op_list_message
 
 
 
@@ -30,9 +31,10 @@ if __name__ == "__main__":
     delay = 0
     # example requests
     print("Test program running...")
+    print("Press enter to run test commands...")
     input()
     print('SIGN UP NEW USER')
-    operation1 = [{'sign_up': True},
+    operation1 = ['sign_up',
                   {'username': 'John_Doe',
                    'password': 'password123',
                    'email': 'user@example.com',
@@ -40,10 +42,10 @@ if __name__ == "__main__":
                    }]
     get_micro_response(operation1)
 
-    input()
+    input("Press ENTER to continue...")
     time.sleep(delay)
     print('SIGN UP NEW USER')
-    operation2 = [{'sign_up': True},
+    operation2 = ['sign_up',
                   {'username': 'John_Deer',
                    'password': 'password890',
                    'email': 'Deer@example.com',
@@ -51,34 +53,34 @@ if __name__ == "__main__":
                    }]
     get_micro_response(operation2)
 
-    input()
+    input("Press ENTER to continue...")
     time.sleep(delay)
     print('SIGN IN USER with wrong password')
-    operation3 = [{'sign_in': True},
+    operation3 = ['sign_in',
                   {'username': 'John_Doe',
                    'password': 'wrong password'
                    }]
     get_micro_response(operation3)
 
-    input()
+    input("Press ENTER to continue...")
     time.sleep(delay)
     print('SIGN IN USER')
-    operation4 = [{'sign_in': True},
+    operation4 = ['sign_in',
                   {'username': 'John_Doe',
                    'password': 'password123'
                    }]
     get_micro_response(operation4)
 
-    input()
+    input("Press ENTER to continue...")
     time.sleep(delay)
     print('DELETE USER ID')
-    operation4a = [{'delete_user_id': True}, 4]
+    operation4a = ['delete_user_id', 4]
     get_micro_response(operation4a)
 
-    input()
+    input("Press ENTER to continue...")
     time.sleep(delay)
     print('STORE BOOK')
-    operation5 = [{'store_book': True},
+    operation5 = ['store_book',
                   {'title': 'New Book',
                    'author': 'Author Name',
                    'id': 4,
@@ -87,10 +89,10 @@ if __name__ == "__main__":
                    }]
     get_micro_response(operation5)
 
-    input()
+    input("Press ENTER to continue...")
     time.sleep(delay)
     print('STORE BOOK')
-    operation6 = [{'store_book': True},
+    operation6 = ['store_book',
                   {'title': 'Another Book',
                    'author': 'Author B',
                    'id': 5,
@@ -99,10 +101,10 @@ if __name__ == "__main__":
                    }]
     get_micro_response(operation6)
 
-    input()
+    input("Press ENTER to continue...")
     time.sleep(delay)
     print('STORE BOOK That already exists')
-    operation7 = [{'store_book': True},
+    operation7 = ['store_book',
                   {'title': 'New Book',
                    'author': 'Author Name',
                    'id': 4,
@@ -111,32 +113,32 @@ if __name__ == "__main__":
                    }]
     get_micro_response(operation7)
 
-    input()
+    input("Press ENTER to continue...")
     time.sleep(delay)
     print('BORROW BOOK')
-    operation8 = [{'borrow_book': True}, 4]
+    operation8 = ['borrow_book', 4]
     get_micro_response(operation8)
 
-    input()
+    input("Press ENTER to continue...")
     time.sleep(delay)
     print('RETURN BOOK')
-    operation9 = [{'return_book': True}, 4]
+    operation9 = ['return_book', 4]
     get_micro_response(operation9)
 
-    input()
+    input("Press ENTER to continue...")
     time.sleep(delay)
     print('DELETE BOOK ID')
-    operation10 = [{'delete_book_id': True}, 4]
+    operation10 = ['delete_book_id', 4]
     get_micro_response(operation10)
 
-    input()
+    input("Press ENTER to continue...")
     time.sleep(delay)
     print('DELETE ALL BOOKS')
-    operation10 = [{'delete_all_books': True}, None]
+    operation10 = ['delete_all_books', None]
     get_micro_response(operation10)
 
-    input()
+    input("Press ENTER to continue...")
     time.sleep(delay)
     print('CREATE MESSAGE')
-    operation11 = [{'key1': 'valueA', 'key2': 'valueB', 'id': 100}]
+    operation11 = [None, {'key1': 'valueA', 'key2': 'valueB', 'id': 100}]
     get_micro_response(operation11)
