@@ -44,7 +44,7 @@ def lms_microservice():
 
             # Message storing
             else:
-                new_message = data[1]
+                new_message = data[0]
                 messages.append(new_message)
                 reply = messages
 
